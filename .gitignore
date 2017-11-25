@@ -6,3 +6,7 @@ yvr-weather/
 
 # custom intermediate files
 all.csv
+
+
+# temp
+temp/
