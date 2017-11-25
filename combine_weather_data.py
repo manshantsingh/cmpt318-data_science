@@ -15,7 +15,10 @@ def main():
 		df.append(pd.read_csv(csv, skiprows=16))
 
 	df = pd.concat(df, ignore_index=True)
-	df.to_csv(argv[2])
+	df.dropna(subset=['Weather'], inplace=True)
+
+
+	df.to_csv(argv[2], index=False, encoding='utf-8')
 
 if __name__ == '__main__':
 	main()
