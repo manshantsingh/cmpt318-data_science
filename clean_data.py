@@ -16,6 +16,7 @@ def main():
 
 	df = pd.concat(df, ignore_index=True)
 	df.dropna(subset=['Weather'], inplace=True)
+	df.dropna(axis=1,how='all', inplace=True)
 
 
 	df.to_csv(argv[2], index=False, encoding='utf-8')
