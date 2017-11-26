@@ -1,0 +1,20 @@
+Mainly Clear
+Mostly Cloudy
+Cloudy
+Rain Showers
+Moderate Rain Showers
+Clear
+Rain
+Fog
+Drizzle
+Thunderstorms
+Moderate Rain
+Heavy Rain
+Snow Showers
+Snow
+Freezing Fog
+Moderate Snow
+Snow Pellets
+Heavy Rain Showers
+Moderate Snow Pellets
+Moderate Hail
