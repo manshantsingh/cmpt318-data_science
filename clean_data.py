@@ -15,7 +15,7 @@ def main():
 		df.append(pd.read_csv(csv, skiprows=16))
 
 	df = pd.concat(df, ignore_index=True)
-	df.drop(['Year', 'Month', 'Day', 'Time', 'Data Quality'], axis=1, inplace=True)
+	df.drop(['Year', 'Month', 'Day', 'Data Quality'], axis=1, inplace=True)
 	df.dropna(subset=['Weather'], inplace=True)
 	df.dropna(axis=1,how='any', inplace=True)
 
@@ -24,7 +24,7 @@ def main():
 	global weather_group_names
 	weather_group_names = pd.read_csv('groups.csv').name.values
 
-	df['weather_mask'] = df.Weather.apply(weather_groups)
+	df['weather_mask'] = df.Weather.apply(weather_groups_smart)
 
 	df.to_csv(argv[3], index=False, encoding='utf-8')
 
@@ -40,13 +40,32 @@ def images_dataFrame():
 
 weather_group_names=None
 
-def weather_groups(record):
+def weather_groups_naive(record):
 	r = record.lower()
 	arr = []
-	for i, val in enumerate(weather_group_names):
+	for val in weather_group_names:
 		if val in r:
 			arr.append(val)
-	return ','.join(map(str, arr))
+	return ','.join(arr)
+
+smart_groups = {
+	'clear': ['clear'],
+	'cloudy': ['cloudy'],
+	'rain': ['rain', 'thunderstorm'],
+	'drizzle': ['drizzle'],
+	'fog': ['fog'],
+	'snow': ['snow', 'hail']
+}
+
+def weather_groups_smart(record):
+	r = record.lower()
+	arr = []
+	for key, val in smart_groups.items():
+		for x in val:
+			if x in r:
+				arr.append(key)
+				break
+	return ','.join(arr)
 
 if __name__ == '__main__':
 	main()
