@@ -21,9 +21,12 @@ def main():
 
 	df = df.join(images_dataFrame(), on='Date/Time', how='inner')
 
-	df.to_csv(argv[3], index=False, encoding='utf-8')
+	global weather_group_names
+	weather_group_names = pd.read_csv('groups.csv').name.values
 
-	# images_dataFrame().to_csv('temp/a.csv', index=False, encoding='utf-8')
+	df['mask'] = df.Weather.apply(weather_groups)
+
+	df.to_csv(argv[3], index=False, encoding='utf-8')
 
 def images_dataFrame():
 	df = pd.DataFrame(columns=['Date/Time', 'filename'])
@@ -34,6 +37,16 @@ def images_dataFrame():
 		#    final format: 2016-05-01 01:00
 		dt.append(img[21:25]+'-'+img[25:27]+'-'+img[27:29]+' '+img[29:31]+':'+img[31:33])
 	return pd.DataFrame({'Date/Time': dt, 'filename': all_images}).set_index('Date/Time')
+
+weather_group_names=None
+
+def weather_groups(record):
+	r = record.lower()
+	arr = []
+	for i, val in enumerate(weather_group_names):
+		if val in r:
+			arr.append(i)
+	return arr
 
 if __name__ == '__main__':
 	main()
