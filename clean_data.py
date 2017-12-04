@@ -24,7 +24,7 @@ def main():
 	global weather_group_names
 	weather_group_names = pd.read_csv('groups.csv').name.values
 
-	df['mask'] = df.Weather.apply(weather_groups)
+	df['weather_mask'] = df.Weather.apply(weather_groups)
 
 	df.to_csv(argv[3], index=False, encoding='utf-8')
 
@@ -45,8 +45,8 @@ def weather_groups(record):
 	arr = []
 	for i, val in enumerate(weather_group_names):
 		if val in r:
-			arr.append(i)
-	return arr
+			arr.append(val)
+	return ','.join(map(str, arr))
 
 if __name__ == '__main__':
 	main()
