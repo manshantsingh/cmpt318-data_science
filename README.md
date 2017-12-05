@@ -7,7 +7,7 @@
 python clean_data.py <dir_to_images> <dir_to_csvs> <output_file_name>
 
 Example:
-python clean_data.py katkam-scaled yvr-weather all.csv
+python clean_data.py katkam-scaled yvr-weather cleaned_data.csv
 ```
 
 **2. Run the `learn.py` to generate the combined csv file**
@@ -15,5 +15,5 @@ python clean_data.py katkam-scaled yvr-weather all.csv
 python learn.py <output_file_from_clean_data.py>
 
 Example:
-python learn.py all.csv
+python learn.py cleaned_data.csv
 ```

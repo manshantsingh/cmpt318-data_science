@@ -21,10 +21,7 @@ def main():
 
 	df = df.join(images_dataFrame(), on='Date/Time', how='inner')
 
-	global weather_group_names
-	weather_group_names = pd.read_csv('groups.csv').name.values
-
-	df['weather_mask'] = df.Weather.apply(weather_groups_smart)
+	df['weather_mask'] = df.Weather.apply(weather_groups)
 	df['hour'] = df.Time.apply(lambda x: x[0:2])
 	df.drop(['Time'], axis=1, inplace=True)
 
@@ -40,17 +37,7 @@ def images_dataFrame():
 		dt.append(img[21:25]+'-'+img[25:27]+'-'+img[27:29]+' '+img[29:31]+':'+img[31:33])
 	return pd.DataFrame({'Date/Time': dt, 'filename': all_images}).set_index('Date/Time')
 
-weather_group_names=None
-
-def weather_groups_naive(record):
-	r = record.lower()
-	arr = []
-	for val in weather_group_names:
-		if val in r:
-			arr.append(val)
-	return ','.join(arr)
-
-smart_groups = {
+weather_group_names = {
 	'clear' : ['clear'],
 	'cloudy': ['cloudy'],
 	'rain'  : ['rain', 'thunderstorm', 'drizzle'],
@@ -58,10 +45,10 @@ smart_groups = {
 	'snow'  : ['snow', 'hail']
 }
 
-def weather_groups_smart(record):
+def weather_groups(record):
 	r = record.lower()
 	arr = []
-	for key, val in smart_groups.items():
+	for key, val in weather_group_names.items():
 		for x in val:
 			if x in r:
 				arr.append(key)

@@ -8,7 +8,7 @@ yvr-weather/
 
 
 # custom intermediate files
-all.csv
+*.csv
 
 
 # temp
