@@ -25,6 +25,8 @@ def main():
 	weather_group_names = pd.read_csv('groups.csv').name.values
 
 	df['weather_mask'] = df.Weather.apply(weather_groups_smart)
+	df['hour'] = df.Time.apply(lambda x: x[0:2])
+	df.drop(['Time'], axis=1, inplace=True)
 
 	df.to_csv(argv[3], index=False, encoding='utf-8')
 
@@ -49,12 +51,11 @@ def weather_groups_naive(record):
 	return ','.join(arr)
 
 smart_groups = {
-	'clear': ['clear'],
+	'clear' : ['clear'],
 	'cloudy': ['cloudy'],
-	'rain': ['rain', 'thunderstorm'],
-	'drizzle': ['drizzle'],
-	'fog': ['fog'],
-	'snow': ['snow', 'hail']
+	'rain'  : ['rain', 'thunderstorm', 'drizzle'],
+	'fog'   : ['fog'],
+	'snow'  : ['snow', 'hail']
 }
 
 def weather_groups_smart(record):
