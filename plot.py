@@ -15,8 +15,8 @@ df = df.rename(columns={
 	'KNeighbors' : 'KN',
 	'MLPClassifier' : 'NN',
 	'DecisionTreeClassifier' : 'DT',
-	'ExtraTreeClassifier (w/o S)' : 'ET',
-	'ExtraTreesClassifier (w/ S)' : 'ETS',
+	'ExtraTreeClassifier' : 'ET',
+	'ExtraTreesClassifier' : 'ETS',
 	'RandomForestClassifier' : 'RF',
 	'KNeighbors (n=7)' : 'KN7',
 	'MLPClassifier (custom)' : 'NN_C'
@@ -26,4 +26,5 @@ df.plot(kind='box')
 plt.title('Prediction Score for different Machine Learning Models', fontsize=16)
 plt.xlabel('Machine Learning Model', fontsize=12)
 plt.ylabel('Prediction Score', fontsize=12)
-plt.savefig('boxplot.png')
+plt.show()
+# plt.savefig('boxplot.png')

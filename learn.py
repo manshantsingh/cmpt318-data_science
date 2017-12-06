@@ -58,8 +58,8 @@ def main():
 	run('KNeighbors', KNeighborsClassifier())
 	run('MLPClassifier', MLPClassifier())
 	run('DecisionTreeClassifier', DecisionTreeClassifier())
-	run('ExtraTreeClassifier (w/o S)', ExtraTreeClassifier())
-	run('ExtraTreesClassifier (w/ S)', ExtraTreesClassifier())
+	run('ExtraTreeClassifier', ExtraTreeClassifier())
+	run('ExtraTreesClassifier', ExtraTreesClassifier())
 	run('RandomForestClassifier', RandomForestClassifier())
 
 	print('\nSome parameter tweaks that generally do better\n')
