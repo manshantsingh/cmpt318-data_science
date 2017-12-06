@@ -12,8 +12,8 @@ python clean_data.py katkam-scaled yvr-weather cleaned_data.csv
 
 **2. Run the `learn.py` to generate the combined csv file**
 ```
-python learn.py <output_file_from_clean_data.py>
+python learn.py <output_file_from_clean_data.py> <final_results_file>
 
 Example:
-python learn.py cleaned_data.csv
+python learn.py cleaned_data.csv model_results.csv
 ```

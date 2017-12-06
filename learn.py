@@ -1,4 +1,4 @@
-import sys
+from sys import argv
 import pandas as pd
 import numpy as np
 from skimage import io
@@ -19,7 +19,15 @@ from sklearn.ensemble import ExtraTreesClassifier
 from sklearn.ensemble import RandomForestClassifier
 
 def main():
-	df = pd.read_csv(sys.argv[1])
+
+	num_iterations = 1 # change this number number if you want more points for a plot
+
+	if len(argv) < 3:
+		print("Missing command line arguments. Run as: ")
+		print("python learn.py [cleaned csv file] [result of different models]")
+		return
+
+	df = pd.read_csv(argv[1])
 
 	images = io.imread_collection(df.filename.values)
 	images = np.array(list(map(lambda x: x.reshape(-1), images)))
@@ -34,10 +42,17 @@ def main():
 
 	print('Finished transforming data.\n')
 
+	results = {}
+
 	def run(name, model):
-		X_train, X_test, y_train, y_test = train_test_split(X, masks)
-		model.fit(X_train, y_train)
-		print(name, 'score:', model.score(X_test, y_test))
+		arr = []
+		for i in range(num_iterations):
+			X_train, X_test, y_train, y_test = train_test_split(X, masks)
+			model.fit(X_train, y_train)
+			arr.append(model.score(X_test, y_test))
+			if num_iterations == 1:
+				print(name, 'score:', arr[0])
+		results[name] = arr
 
 	# default values
 	run('KNeighbors', KNeighborsClassifier())
@@ -52,6 +67,9 @@ def main():
 	# changing default values
 	run('KNeighbors (n=7)', KNeighborsClassifier(n_neighbors=7))
 	run('MLPClassifier (custom)', MLPClassifier(solver='lbfgs', activation='logistic', hidden_layer_sizes=(64,)))
+
+	results = pd.DataFrame(results)
+	results.to_csv(argv[2], index=False, encoding='utf-8')
 
 if __name__ == '__main__':
 	main()

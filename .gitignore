@@ -9,7 +9,7 @@ yvr-weather/
 
 # custom intermediate files
 *.csv
-
+*.png
 
 # temp
 temp/
