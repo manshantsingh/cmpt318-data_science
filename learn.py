@@ -37,7 +37,7 @@ def main():
 	weathers = df.weather_mask.apply(lambda x: np.array(x.split(',')))
 	masks = MultiLabelBinarizer().fit_transform(weathers)
 	reduced_images = PCA(50).fit_transform(images)
-	combined = df.drop(['Date/Time','Weather','filename','weather_mask'], axis=1).join(pd.DataFrame(reduced_images))
+	combined = df.drop(['Date/Time','filename','weather_mask'], axis=1).join(pd.DataFrame(reduced_images))
 	X = MinMaxScaler().fit_transform(combined)
 
 	print('Finished transforming data.\n')

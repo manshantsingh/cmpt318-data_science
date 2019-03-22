@@ -5,11 +5,10 @@ import matplotlib.pyplot as plt
 df = pd.read_csv(sys.argv[1])
 
 df.plot(kind='line')
-plt.title('Prediction Score for different Machine Learning Models', fontsize=16)
-plt.xlabel('Iterations', fontsize=12)
-plt.ylabel('Prediction Score', fontsize=12)
+plt.xlabel('No. of Iterations', fontsize=12)
+plt.ylabel('Score', fontsize=12)
 plt.legend(df.columns, fontsize=6)
-plt.savefig('lineplot.png')
+plt.show()
 
 df = df.rename(columns={
 	'KNeighbors' : 'KN',
@@ -17,13 +16,10 @@ df = df.rename(columns={
 	'DecisionTreeClassifier' : 'DT',
 	'ExtraTreeClassifier' : 'ET',
 	'ExtraTreesClassifier' : 'ETS',
-	'RandomForestClassifier' : 'RF',
-	'KNeighbors (n=7)' : 'KN7',
-	'MLPClassifier (custom)' : 'NN_C'
+	'RandomForestClassifier' : 'RF'
 })
 
 df.plot(kind='box')
-plt.title('Prediction Score for different Machine Learning Models', fontsize=16)
-plt.xlabel('Machine Learning Model', fontsize=12)
-plt.ylabel('Prediction Score', fontsize=12)
+plt.xlabel('Model', fontsize=12)
+plt.ylabel('Score', fontsize=12)
 plt.savefig('boxplot.png')
